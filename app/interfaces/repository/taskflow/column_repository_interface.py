@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
-from typing import List
+from typing import List, Dict
 
-from app.schemas.requests.column_requests import CreateColumnRequest, DeleteColumnRequest, UpdateColumnRequest
-from app.schemas.responses.column_responses import Column
+from app.schemas.requests.taskflow.column_requests import CreateColumnRequest, DeleteColumnRequest, UpdateColumnRequest
+from app.schemas.responses.taskflow.column_responses import Column
 
 
 class IColumnRepository(ABC):
@@ -25,4 +25,8 @@ class IColumnRepository(ABC):
 
     @abstractmethod
     async def update_column(self, board_id: int, column_request: UpdateColumnRequest) -> dict:
+        raise NotImplementedError()
+
+    @abstractmethod
+    async def create_columns_in_batch(self, board_id: int, columns: List[Dict]):
         raise NotImplementedError()

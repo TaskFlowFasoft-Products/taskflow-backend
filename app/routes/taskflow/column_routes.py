@@ -12,13 +12,13 @@ from app.schemas.responses.taskflow.column_responses import (
     UpdateColumnResponse
 )
 
-column = APIRouter(
+base_column = APIRouter(
     prefix="/column",
-    tags=["Column"]
+    tags=["TaskFlow Base - Column"]
 )
 
 
-@column.post("", response_model=CreateColumnResponse)
+@base_column.post("", response_model=CreateColumnResponse)
 async def create_column(
         column_request: CreateColumnRequest,
         user_data: UserJWTData = Depends(decode_access_token),
@@ -27,7 +27,7 @@ async def create_column(
     return await column_services.create_column(column_request, user_data)
 
 
-@column.delete("", response_model=DeleteColumnResponse)
+@base_column.delete("", response_model=DeleteColumnResponse)
 async def delete_column(
         column_request: DeleteColumnRequest,
         user_data: UserJWTData = Depends(decode_access_token),
@@ -36,7 +36,7 @@ async def delete_column(
     return await column_services.delete_column(column_request, user_data)
 
 
-@column.get("/{board_id}", response_model=GetColumnsResponse)
+@base_column.get("/{board_id}", response_model=GetColumnsResponse)
 async def get_board_columns(
         board_id: int = Path(title="ID do quadro.", description="ID do quadro cujas colunas serão retornadas."),
         user_data: UserJWTData = Depends(decode_access_token),
@@ -45,7 +45,7 @@ async def get_board_columns(
     return await column_services.get_board_columns(board_id, user_data)
 
 
-@column.put("/{board_id}", response_model=UpdateColumnResponse)
+@base_column.put("/{board_id}", response_model=UpdateColumnResponse)
 async def update_column(
         column_request: UpdateColumnRequest,
         board_id: int = Path(title="ID do quadro.", description="ID do quadro cujas colunas serão atualizadas."),

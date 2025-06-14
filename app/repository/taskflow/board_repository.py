@@ -5,6 +5,7 @@ from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.interfaces.repository.taskflow.board_repository_interface import IBoardRepository
+from app.schemas.board_enum import ProductType
 from app.schemas.requests.taskflow.board_requests import BoardUpdateRequest
 from app.schemas.responses.taskflow.board_responses import Board
 
@@ -27,12 +28,12 @@ class BoardRepository(IBoardRepository):
 
         return False if not check_existency.scalar() else True
 
-    async def get_user_boards(self, user_id: int) -> Optional[List[Board]]:
+    async def get_user_boards(self, user_id: int, product_type: ProductType) -> Optional[List[Board]]:
         result = await self.connection.execute(
             statement=text(
-                "SELECT * FROM BOARDS WHERE USER_ID = :user_id"
+                "SELECT * FROM BOARDS WHERE USER_ID = :user_id AND product_type = :product_type"
             ),
-            params={"user_id": user_id}
+            params={"user_id": user_id, "product_type": product_type}
         )
 
         boards = result.mappings().all()
@@ -69,25 +70,28 @@ class BoardRepository(IBoardRepository):
                 detail="Ocorreu um erro ao tentar excluir o quadro."
             )
 
-    async def create_board(self, title: str, user_id: int) -> dict:
+    async def create_board(self, title: str, user_id: int, product_type: ProductType) -> dict:
         result = await self.connection.execute(
             statement=text(
                 """
                 INSERT INTO BOARDS (
                     TITLE,
                     USER_ID,
-                    CREATED_AT
+                    CREATED_AT,
+                    PRODUCT_TYPE
                 )
                 VALUES (
                     :title,
                     :user_id,
-                    CURRENT_TIMESTAMP AT TIME ZONE 'America/Sao_Paulo'
+                    CURRENT_TIMESTAMP AT TIME ZONE 'America/Sao_Paulo',
+                    :product_type
                 ) RETURNING ID, CREATED_AT
                 """
             ),
             params={
                 "title": title,
-                "user_id": user_id
+                "user_id": user_id,
+                "product_type": product_type.value
             }
         )
 

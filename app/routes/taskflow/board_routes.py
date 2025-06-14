@@ -11,13 +11,13 @@ from app.schemas.responses.taskflow.board_responses import (
     BoardUpdateResponse
 )
 
-boards = APIRouter(
+base_boards = APIRouter(
     prefix="/boards",
-    tags=["Boards"]
+    tags=["TaskFlow Base - Boards"]
 )
 
 
-@boards.get("", response_model=GetBoardsResponse)
+@base_boards.get("", response_model=GetBoardsResponse)
 async def get_boards(
         user_data: UserJWTData = Depends(decode_access_token),
         board_services: IBoardServices = Depends(get_board_services)
@@ -25,7 +25,7 @@ async def get_boards(
     return await board_services.get_boards(user_data)
 
 
-@boards.delete("/{board_id}", response_model=BoardDeletionResponse)
+@base_boards.delete("/{board_id}", response_model=BoardDeletionResponse)
 async def delete_board(
         board_id: int = Path(title="ID do quadro.", description="ID do quadro a ser deletado."),
         user_data: UserJWTData = Depends(decode_access_token),
@@ -34,7 +34,7 @@ async def delete_board(
     return await board_services.delete_board(board_id, user_data)
 
 
-@boards.post("", response_model=BoardCreatedResponse)
+@base_boards.post("", response_model=BoardCreatedResponse)
 async def create_board(
         board_request: CreateBoardRequest,
         user_data: UserJWTData = Depends(decode_access_token),
@@ -43,7 +43,7 @@ async def create_board(
     return await board_services.create_board(board_request, user_data)
 
 
-@boards.put("/{board_id}", response_model=BoardUpdateResponse)
+@base_boards.put("/{board_id}", response_model=BoardUpdateResponse)
 async def update_board(
         board_request: BoardUpdateRequest,
         board_id: int = Path(title="ID do quadro.", description="ID do quadro a ser atualizado."),

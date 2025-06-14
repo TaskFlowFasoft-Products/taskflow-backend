@@ -1,12 +1,12 @@
-from typing import List
+from typing import List, Dict
 
 from fastapi import HTTPException, status
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.interfaces.repository.column_repository_interface import  IColumnRepository
-from app.schemas.requests.column_requests import CreateColumnRequest, DeleteColumnRequest, UpdateColumnRequest
-from app.schemas.responses.column_responses import Column
+from app.interfaces.repository.taskflow.column_repository_interface import  IColumnRepository
+from app.schemas.requests.taskflow.column_requests import CreateColumnRequest, DeleteColumnRequest, UpdateColumnRequest
+from app.schemas.responses.taskflow.column_responses import Column
 
 
 class ColumnRepository(IColumnRepository):
@@ -144,3 +144,25 @@ class ColumnRepository(IColumnRepository):
                     status_code=status.HTTP_400_BAD_REQUEST,
                     detail="Ocorreu um erro ao atualizar a coluna."
                 )
+
+    async def create_columns_in_batch(self, board_id: int, columns: List[Dict]):
+        column_values = [{"title": col['name'], "board_id": board_id} for col in columns]
+
+        await self.connection.execute(
+            statement=text(
+                """
+                INSERT INTO BOARD_COLUMNS (
+                    TITLE,
+                    BOARD_ID,
+                    CREATED_AT
+                )
+                VALUES (
+                    :title,
+                    :board_id,
+                    CURRENT_TIMESTAMP AT TIME ZONE 'America/Sao_Paulo'
+                )
+            """),
+            params=column_values
+        )
+
+        await self.connection.commit()

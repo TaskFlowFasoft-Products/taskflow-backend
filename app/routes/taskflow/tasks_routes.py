@@ -12,13 +12,13 @@ from app.schemas.responses.taskflow.tasks_responses import (
     UpdateTaskResponse
 )
 
-tasks = APIRouter(
+base_tasks = APIRouter(
     prefix="/tasks",
-    tags=["Tasks"]
+    tags=["TaskFlow Base - Tasks"]
 )
 
 
-@tasks.post("", response_model=CreateTaskResponse)
+@base_tasks.post("", response_model=CreateTaskResponse)
 async def create_task(
         tasks_request: CreateTaskRequest,
         user_data: UserJWTData = Depends(decode_access_token),
@@ -27,7 +27,7 @@ async def create_task(
     return await tasks_services.create_task(tasks_request, user_data)
 
 
-@tasks.get("", response_model=GetColumnTasksResponse)
+@base_tasks.get("", response_model=GetColumnTasksResponse)
 async def get_column_tasks(
         column_id: int = Query(title="ID da coluna.", description="ID da coluna que terá as tasks retornada."),
         board_id: int = Query(title="ID do quadro.", description="ID do quadro vinculado à coluna."),
@@ -37,7 +37,7 @@ async def get_column_tasks(
     return await tasks_services.get_column_tasks(column_id, board_id, user_data)
 
 
-@tasks.delete("", response_model=DeleteTaskResponse)
+@base_tasks.delete("", response_model=DeleteTaskResponse)
 async def delete_task(
         tasks_request: DeleteTaskRequest,
         user_data: UserJWTData = Depends(decode_access_token),
@@ -46,7 +46,7 @@ async def delete_task(
     return await tasks_services.delete_task(tasks_request, user_data)
 
 
-@tasks.put("", response_model=UpdateTaskResponse)
+@base_tasks.put("", response_model=UpdateTaskResponse)
 async def update_task(
         tasks_request: UpdateTaskRequest,
         user_data: UserJWTData = Depends(decode_access_token),
