@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 
 from app.schemas.requests.authentication_requests import UserJWTData
-from app.schemas.requests.tasks_requests import CreateTaskRequest, DeleteTaskRequest, UpdateTaskRequest
-from app.schemas.responses.tasks_responses import (
+from app.schemas.requests.taskflow.tasks_requests import CreateTaskRequest, DeleteTaskRequest, UpdateTaskRequest
+from app.schemas.responses.taskflow.tasks_responses import (
     CreateTaskResponse,
     GetColumnTasksResponse,
     DeleteTaskResponse,

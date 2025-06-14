@@ -1,10 +1,10 @@
 from typing import Optional
 
 from app.core.jwt_auth import UserJWTData
-from app.interfaces.repository.board_repository_interface import IBoardRepository
-from app.interfaces.services.board_services_interface import IBoardServices
-from app.schemas.requests.board_requests import CreateBoardRequest, BoardUpdateRequest
-from app.schemas.responses.board_responses import (
+from app.interfaces.repository.taskflow.board_repository_interface import IBoardRepository
+from app.interfaces.services.taskflow.board_services_interface import IBoardServices
+from app.schemas.requests.taskflow.board_requests import CreateBoardRequest, BoardUpdateRequest
+from app.schemas.responses.taskflow.board_responses import (
     GetBoardsResponse,
     BoardDeletionResponse,
     BoardCreatedResponse,

@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from app.schemas.requests.tasks_requests import CreateTaskRequest, DeleteTaskRequest, UpdateTaskRequest
+from app.schemas.requests.taskflow.tasks_requests import CreateTaskRequest, DeleteTaskRequest, UpdateTaskRequest
 
 
 class ITasksRepository(ABC):

@@ -4,8 +4,8 @@ from fastapi import HTTPException, status
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.interfaces.repository.tasks_repository_interface import ITasksRepository
-from app.schemas.requests.tasks_requests import CreateTaskRequest, DeleteTaskRequest, UpdateTaskRequest
+from app.interfaces.repository.taskflow.tasks_repository_interface import ITasksRepository
+from app.schemas.requests.taskflow.tasks_requests import CreateTaskRequest, DeleteTaskRequest, UpdateTaskRequest
 
 
 class TasksRepository(ITasksRepository):

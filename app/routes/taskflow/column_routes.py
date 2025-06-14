@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends, Path
 
 from app.core.jwt_auth import decode_access_token
-from app.dependencies.column import get_column_services
-from app.interfaces.services.column_services_interface import IColumnServices
+from app.dependencies.taskflow.column import get_column_services
+from app.interfaces.services.taskflow.column_services_interface import IColumnServices
 from app.schemas.requests.authentication_requests import UserJWTData
-from app.schemas.requests.column_requests import CreateColumnRequest, DeleteColumnRequest, UpdateColumnRequest
-from app.schemas.responses.column_responses import (
+from app.schemas.requests.taskflow.column_requests import CreateColumnRequest, DeleteColumnRequest, UpdateColumnRequest
+from app.schemas.responses.taskflow.column_responses import (
     CreateColumnResponse,
     DeleteColumnResponse,
     GetColumnsResponse,

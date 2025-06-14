@@ -6,9 +6,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.routes.authentication_routes import authentication
-from app.routes.board_routes import boards
-from app.routes.column_routes import column
-from app.routes.tasks_routes import tasks
+from app.routes.taskflow.board_routes import boards
+from app.routes.taskflow.column_routes import column
+from app.routes.taskflow.tasks_routes import tasks
 
 app = FastAPI(
     title="API TaskFlow",

@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends, Query
 
 from app.core.jwt_auth import decode_access_token
-from app.dependencies.tasks import get_tasks_services
-from app.interfaces.services.tasks_services_interface import ITasksServices
+from app.dependencies.taskflow.tasks import get_tasks_services
+from app.interfaces.services.taskflow.tasks_services_interface import ITasksServices
 from app.schemas.requests.authentication_requests import UserJWTData
-from app.schemas.requests.tasks_requests import CreateTaskRequest, DeleteTaskRequest, UpdateTaskRequest
-from app.schemas.responses.tasks_responses import (
+from app.schemas.requests.taskflow.tasks_requests import CreateTaskRequest, DeleteTaskRequest, UpdateTaskRequest
+from app.schemas.responses.taskflow.tasks_responses import (
     CreateTaskResponse,
     GetColumnTasksResponse,
     DeleteTaskResponse,

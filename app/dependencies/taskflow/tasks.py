@@ -2,14 +2,14 @@ from fastapi import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_session
-from app.interfaces.repository.board_repository_interface import IBoardRepository
-from app.interfaces.repository.column_repository_interface import IColumnRepository
-from app.interfaces.repository.tasks_repository_interface import ITasksRepository
-from app.interfaces.services.tasks_services_interface import ITasksServices
-from app.repository.board_repository import BoardRepository
-from app.repository.column_repository import ColumnRepository
-from app.repository.tasks_repository import TasksRepository
-from app.services.tasks_services import TasksServices
+from app.interfaces.repository.taskflow.board_repository_interface import IBoardRepository
+from app.interfaces.repository.taskflow.column_repository_interface import IColumnRepository
+from app.interfaces.repository.taskflow.tasks_repository_interface import ITasksRepository
+from app.interfaces.services.taskflow.tasks_services_interface import ITasksServices
+from app.repository.taskflow.board_repository import BoardRepository
+from app.repository.taskflow.column_repository import ColumnRepository
+from app.repository.taskflow.tasks_repository import TasksRepository
+from app.services.taskflow.tasks_services import TasksServices
 
 
 async def get_board_repository(session: AsyncSession = Depends(get_session)) -> IBoardRepository:

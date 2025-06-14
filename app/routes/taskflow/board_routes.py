@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, Path
 
 from app.core.jwt_auth import decode_access_token, UserJWTData
-from app.dependencies.board import get_board_services
-from app.interfaces.services.board_services_interface import IBoardServices
-from app.schemas.requests.board_requests import CreateBoardRequest, BoardUpdateRequest
-from app.schemas.responses.board_responses import (
+from app.dependencies.taskflow.board import get_board_services
+from app.interfaces.services.taskflow.board_services_interface import IBoardServices
+from app.schemas.requests.taskflow.board_requests import CreateBoardRequest, BoardUpdateRequest
+from app.schemas.responses.taskflow.board_responses import (
     GetBoardsResponse,
     BoardDeletionResponse,
     BoardCreatedResponse,

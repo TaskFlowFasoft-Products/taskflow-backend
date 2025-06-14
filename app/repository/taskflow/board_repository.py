@@ -4,9 +4,9 @@ from fastapi import HTTPException, status
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.interfaces.repository.board_repository_interface import IBoardRepository
-from app.schemas.requests.board_requests import BoardUpdateRequest
-from app.schemas.responses.board_responses import Board
+from app.interfaces.repository.taskflow.board_repository_interface import IBoardRepository
+from app.schemas.requests.taskflow.board_requests import BoardUpdateRequest
+from app.schemas.responses.taskflow.board_responses import Board
 
 
 class BoardRepository(IBoardRepository):
