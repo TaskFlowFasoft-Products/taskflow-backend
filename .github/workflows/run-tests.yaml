@@ -10,7 +10,7 @@ on:
 
 jobs:
   run_unit_tests:
-    runs-on: self-hosted-runner
+    runs-on: ubuntu-latest
 
     env:
       PYTHON_VERSION: '3.12'
