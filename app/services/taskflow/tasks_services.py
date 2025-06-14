@@ -1,12 +1,12 @@
 from fastapi import status, HTTPException
 
-from app.interfaces.repository.board_repository_interface import IBoardRepository
-from app.interfaces.repository.column_repository_interface import IColumnRepository
-from app.interfaces.repository.tasks_repository_interface import ITasksRepository
-from app.interfaces.services.tasks_services_interface import ITasksServices
+from app.interfaces.repository.taskflow.board_repository_interface import IBoardRepository
+from app.interfaces.repository.taskflow.column_repository_interface import IColumnRepository
+from app.interfaces.repository.taskflow.tasks_repository_interface import ITasksRepository
+from app.interfaces.services.taskflow.tasks_services_interface import ITasksServices
 from app.schemas.requests.authentication_requests import UserJWTData
-from app.schemas.requests.tasks_requests import CreateTaskRequest, DeleteTaskRequest, UpdateTaskRequest
-from app.schemas.responses.tasks_responses import (
+from app.schemas.requests.taskflow.tasks_requests import CreateTaskRequest, DeleteTaskRequest, UpdateTaskRequest
+from app.schemas.responses.taskflow.tasks_responses import (
     CreateTaskResponse,
     GetColumnTasksResponse,
     DeleteTaskResponse,

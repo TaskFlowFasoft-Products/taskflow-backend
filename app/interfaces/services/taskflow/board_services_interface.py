@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 
 from app.core.jwt_auth import UserJWTData
-from app.schemas.requests.board_requests import CreateBoardRequest, BoardUpdateRequest
-from app.schemas.responses.board_responses import (
+from app.schemas.requests.taskflow.board_requests import CreateBoardRequest, BoardUpdateRequest
+from app.schemas.responses.taskflow.board_responses import (
     GetBoardsResponse,
     BoardDeletionResponse,
     BoardCreatedResponse,

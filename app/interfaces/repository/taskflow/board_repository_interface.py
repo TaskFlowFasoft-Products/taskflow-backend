@@ -1,8 +1,9 @@
 from abc import ABC, abstractmethod
 from typing import List, Optional
 
-from app.schemas.requests.board_requests import BoardUpdateRequest
-from app.schemas.responses.board_responses import Board
+from app.schemas.board_enum import ProductType
+from app.schemas.requests.taskflow.board_requests import BoardUpdateRequest
+from app.schemas.responses.taskflow.board_responses import Board
 
 
 class IBoardRepository(ABC):
@@ -12,7 +13,7 @@ class IBoardRepository(ABC):
         raise NotImplementedError()
 
     @abstractmethod
-    async def get_user_boards(self, user_id: int) -> Optional[List[Board]]:
+    async def get_user_boards(self, user_id: int, product_type: ProductType) -> Optional[List[Board]]:
         raise NotImplementedError()
 
     @abstractmethod
@@ -20,7 +21,7 @@ class IBoardRepository(ABC):
         raise NotImplementedError()
 
     @abstractmethod
-    async def create_board(self, title: str, user_id: int) -> dict:
+    async def create_board(self, title: str, user_id: int, product_type: ProductType) -> dict:
         raise NotImplementedError()
 
     @abstractmethod
