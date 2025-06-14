@@ -18,8 +18,8 @@ class BoardServices(IBoardServices):
     def __init__(self, board_repository: IBoardRepository):
         self.board_repository = board_repository
 
-    async def get_boards(self, user_data: UserJWTData) -> Optional[GetBoardsResponse]:
-        boards = await self.board_repository.get_user_boards(user_data.user_id, ProductType.CORE)
+    async def get_boards(self, user_data: UserJWTData, product_type: ProductType) -> GetBoardsResponse:
+        boards = await self.board_repository.get_user_boards(user_data.user_id, product_type)
 
         return GetBoardsResponse(boards=boards)
 
