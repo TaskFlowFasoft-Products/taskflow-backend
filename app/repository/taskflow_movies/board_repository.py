@@ -3,9 +3,10 @@ from typing import List, Dict, Optional
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.interfaces.repository.taskflow_gym.board_repository_interface import IGymBoardRepository
+from app.interfaces.repository.taskflow_movies.board_repository_interface import IMoviesBoardRepository
 
-class GymBoardRepository(IGymBoardRepository):
+
+class MoviesBoardRepository(IMoviesBoardRepository):
 
     def __init__(self, connection: AsyncSession):
         self.connection = connection
@@ -18,7 +19,7 @@ class GymBoardRepository(IGymBoardRepository):
                     ID,
                     NAME,
                     DESCRIPTION
-                FROM GYM_BOARD_TEMPLATES
+                FROM MOVIES_BOARD_TEMPLATES
                 ORDER BY ID
                 """
             )
@@ -32,7 +33,7 @@ class GymBoardRepository(IGymBoardRepository):
                 """
                 SELECT
                     NAME
-                FROM GYM_BOARD_TEMPLATES
+                FROM MOVIES_BOARD_TEMPLATES
                 WHERE ID = :template_id
                 """
             ),
@@ -47,7 +48,7 @@ class GymBoardRepository(IGymBoardRepository):
                 """
                 SELECT
                     NAME
-                FROM GYM_COLUMN_TEMPLATES
+                FROM MOVIES_COLUMN_TEMPLATES
                 ORDER BY COLUMN_ORDER
                 """
             )

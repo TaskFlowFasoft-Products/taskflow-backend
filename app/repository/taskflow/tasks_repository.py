@@ -15,6 +15,7 @@ class TasksRepository(ITasksRepository):
 
     async def create_task(self, tasks_request) -> Dict:
         columns = ["TITLE", "DESCRIPTION", "COLUMN_ID", "DUE_DATE", "CREATED_AT"]
+
         values = [
             ":title",
             ":description",
@@ -27,13 +28,21 @@ class TasksRepository(ITasksRepository):
             "title": tasks_request.title,
             "description": tasks_request.description,
             "column_id": tasks_request.column_id,
-            "due_date": tasks_request.due_date
+            "due_date": getattr(tasks_request, 'due_date', None)
         }
 
-        if hasattr(tasks_request, 'completion_image_base64') and tasks_request.completion_image_base64:
-            columns.append("completion_image_base64")
-            values.append(":completion_image_base64")
-            params["completion_image_base64"] = tasks_request.completion_image_base64
+        optional_fields = {
+            'completion_image_base64': 'completion_image_base64',
+            'recommended_by': 'recommended_by',
+            'rating': 'rating',
+            'category': 'category'
+        }
+
+        for attr, column in optional_fields.items():
+            if hasattr(tasks_request, attr) and getattr(tasks_request, attr) is not None:
+                columns.append(column)
+                values.append(f":{attr}")
+                params[attr] = getattr(tasks_request, attr)
 
         sql_query = f"""
             INSERT INTO TASKS(
@@ -88,7 +97,10 @@ class TasksRepository(ITasksRepository):
             'description': 'DESCRIPTION',
             'column_id': 'COLUMN_ID',
             'due_date': 'DUE_DATE',
-            'completion_image_base64': 'COMPLETION_IMAGE_BASE64'
+            'completion_image_base64': 'COMPLETION_IMAGE_BASE64',
+            'recommended_by': 'RECOMMENDED_BY',
+            'rating': 'RATING',
+            'category': 'CATEGORY'
         }
 
         for field, column in field_map.items():
