@@ -1,4 +1,5 @@
-from typing import Dict
+from datetime import datetime
+from typing import Dict, Optional
 
 from fastapi import HTTPException, status
 from sqlalchemy import text, RowMapping, Sequence
@@ -35,7 +36,12 @@ class TasksRepository(ITasksRepository):
             'completion_image_base64': 'completion_image_base64',
             'recommended_by': 'recommended_by',
             'rating': 'rating',
-            'category': 'category'
+            'category': 'category',
+            'sets_reps': 'sets_reps',
+            'pace_speed': 'pace_speed',
+            'run_screenshot_base64': 'run_screenshot_base64',
+            'rpe_scale': 'rpe_scale',
+            'muscle_group': 'muscle_group'
         }
 
         for attr, column in optional_fields.items():
@@ -100,7 +106,9 @@ class TasksRepository(ITasksRepository):
             'completion_image_base64': 'COMPLETION_IMAGE_BASE64',
             'recommended_by': 'RECOMMENDED_BY',
             'rating': 'RATING',
-            'category': 'CATEGORY'
+            'category': 'CATEGORY',
+            'run_screenshot_base64': 'RUN_SCREENSHOT_BASE64',
+            'distance_time': 'DISTANCE_TIME'
         }
 
         for field, column in field_map.items():
@@ -148,3 +156,20 @@ class TasksRepository(ITasksRepository):
         )
 
         await self.connection.commit()
+
+    async def get_most_recent_task_date_for_muscle_group(self, user_id: int, muscle_group: str) -> Optional[datetime]:
+        sql_query = """
+            SELECT
+                MAX(T.created_at) as last_training_date
+            FROM tasks T
+                JOIN board_columns C ON T.column_id = C.id
+                JOIN boards B ON C.board_id = B.id
+            WHERE B.user_id = :user_id
+                AND T.muscle_group = :muscle_group
+        """
+        result = await self.connection.execute(
+            statement=text(sql_query),
+            params={"user_id": user_id, "muscle_group": muscle_group}
+        )
+
+        return result.scalar_one_or_none()

@@ -1,11 +1,10 @@
 from abc import ABC, abstractmethod
+from typing import Sequence, Dict, Optional
 from datetime import datetime
-from typing import Dict, Sequence, Optional
 
 from sqlalchemy import RowMapping
 
 from app.schemas.requests.taskflow.tasks_requests import DeleteTaskRequest
-
 
 class ITasksRepository(ABC):
 
