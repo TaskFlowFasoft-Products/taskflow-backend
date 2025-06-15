@@ -3,6 +3,7 @@ from fastapi import APIRouter, Depends, Path
 from app.core.jwt_auth import decode_access_token, UserJWTData
 from app.dependencies.taskflow.board import get_board_services
 from app.interfaces.services.taskflow.board_services_interface import IBoardServices
+from app.schemas.board_enum import ProductType
 from app.schemas.requests.taskflow.board_requests import CreateBoardRequest, BoardUpdateRequest
 from app.schemas.responses.taskflow.board_responses import (
     GetBoardsResponse,
@@ -22,7 +23,7 @@ async def get_boards(
         user_data: UserJWTData = Depends(decode_access_token),
         board_services: IBoardServices = Depends(get_board_services)
 ) -> GetBoardsResponse:
-    return await board_services.get_boards(user_data)
+    return await board_services.get_boards(user_data, ProductType.CORE)
 
 
 @base_boards.delete("/{board_id}", response_model=BoardDeletionResponse)
