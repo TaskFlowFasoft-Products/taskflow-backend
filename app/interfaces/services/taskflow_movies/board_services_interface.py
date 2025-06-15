@@ -1,15 +1,15 @@
 from abc import ABC, abstractmethod
 
 from app.core.jwt_auth import UserJWTData
-from app.schemas.requests.taskflow_gym.board_requests import CreateBoardFromTemplateRequest
+from app.schemas.requests.taskflow_movies.board_requests import CreateBoardFromTemplateRequest
 from app.schemas.responses.taskflow.board_responses import BoardCreatedResponse
-from app.schemas.responses.taskflow_gym.board_responses import GetGymBoardTemplatesResponse
+from app.schemas.responses.taskflow_movies.board_responses import GetMoviesBoardTemplatesResponse
 
 
-class IGymBoardServices(ABC):
+class IMoviesBoardServices(ABC):
 
     @abstractmethod
-    async def list_board_templates(self) -> GetGymBoardTemplatesResponse:
+    async def list_board_templates(self) -> GetMoviesBoardTemplatesResponse:
         raise NotImplementedError()
 
     @abstractmethod

@@ -4,7 +4,7 @@ from datetime import datetime
 from pydantic import BaseModel
 
 
-class GymTaskResponse(BaseModel):
+class MoviesTaskResponse(BaseModel):
     id: int
     title: str
     description: Optional[str] = None
@@ -15,11 +15,11 @@ class GymTaskResponse(BaseModel):
     category: Optional[str] = None
 
 
-class GetGymTasksResponse(BaseModel):
-    tasks: List[GymTaskResponse]
+class GetMoviesTasksResponse(BaseModel):
+    tasks: List[MoviesTaskResponse]
 
 
-class CreateGymTaskResponse(BaseModel):
+class CreateMoviesTaskResponse(BaseModel):
     id: int
     title: str
     description: Optional[str] = None
@@ -29,7 +29,7 @@ class CreateGymTaskResponse(BaseModel):
     category: Optional[str] = None
 
 
-class UpdateGymTaskResponse(BaseModel):
+class UpdateMoviesTaskResponse(BaseModel):
     success: bool
     id: int
     message: str

@@ -11,8 +11,8 @@ from app.routes.taskflow.column_routes import base_column
 from app.routes.taskflow.tasks_routes import base_tasks
 from app.routes.taskflow_studies.board_routes import studies_board
 from app.routes.taskflow_studies.tasks_routes import studies_tasks
-from app.routes.taskflow_gym.board_routes import gym_board
-from app.routes.taskflow_gym.tasks_routes import gym_tasks
+from app.routes.taskflow_movies.board_routes import movies_board
+from app.routes.taskflow_movies.tasks_routes import movies_tasks
 
 app = FastAPI(
     title="API TaskFlow",
@@ -30,8 +30,8 @@ app.include_router(base_column)
 app.include_router(base_tasks)
 app.include_router(studies_board)
 app.include_router(studies_tasks)
-app.include_router(gym_board)
-app.include_router(gym_tasks)
+app.include_router(movies_board)
+app.include_router(movies_tasks)
 
 app.add_middleware(
     CORSMiddleware,
@@ -44,4 +44,4 @@ app.add_middleware(
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True, log_level="info")
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=False, log_level="info")

@@ -32,10 +32,10 @@ class TasksRepository(ITasksRepository):
         }
 
         optional_fields = {
-            'completion_image_base64': 'completion_image_base64',  # Studies
-            'recommended_by': 'recommended_by',  # Gym
-            'rating': 'rating',  # Gym
-            'category': 'category'  # Gym
+            'completion_image_base64': 'completion_image_base64',
+            'recommended_by': 'recommended_by',
+            'rating': 'rating',
+            'category': 'category'
         }
 
         for attr, column in optional_fields.items():

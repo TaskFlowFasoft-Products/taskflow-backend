@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from typing import List, Dict, Optional
 
 
-class IGymBoardRepository(ABC):
+class IMoviesBoardRepository(ABC):
 
     @abstractmethod
     async def get_board_templates(self) -> List[Dict]:

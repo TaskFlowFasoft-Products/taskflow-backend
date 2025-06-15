@@ -4,18 +4,18 @@ from app.core.jwt_auth import UserJWTData
 from app.interfaces.repository.taskflow.board_repository_interface import IBoardRepository
 from app.interfaces.repository.taskflow.column_repository_interface import IColumnRepository
 from app.interfaces.repository.taskflow.tasks_repository_interface import ITasksRepository
-from app.interfaces.services.taskflow_gym.tasks_services_interface import IGymTasksServices
-from app.schemas.requests.taskflow_gym.tasks_requests import CreateGymTaskRequest, UpdateGymTaskRequest, DeleteGymTaskRequest
+from app.interfaces.services.taskflow_movies.tasks_services_interface import IMoviesTasksServices
+from app.schemas.requests.taskflow_movies.tasks_requests import CreateMoviesTaskRequest, UpdateMoviesTaskRequest, DeleteMoviesTaskRequest
 from app.schemas.responses.taskflow.tasks_responses import DeleteTaskResponse
-from app.schemas.responses.taskflow_gym.tasks_responses import (
-    GetGymTasksResponse,
-    GymTaskResponse,
-    CreateGymTaskResponse,
-    UpdateGymTaskResponse
+from app.schemas.responses.taskflow_movies.tasks_responses import (
+    GetMoviesTasksResponse,
+    MoviesTaskResponse,
+    CreateMoviesTaskResponse,
+    UpdateMoviesTaskResponse
 )
 
 
-class GymTasksServices(IGymTasksServices):
+class MoviesTasksServices(IMoviesTasksServices):
 
     def __init__(
         self,
@@ -40,29 +40,29 @@ class GymTasksServices(IGymTasksServices):
                 detail="Coluna não encontrada neste quadro."
             )
 
-    async def create_task(self, request: CreateGymTaskRequest, user_data: UserJWTData) -> CreateGymTaskResponse:
+    async def create_task(self, request: CreateMoviesTaskRequest, user_data: UserJWTData) -> CreateMoviesTaskResponse:
         await self._verify_board_and_column_ownership(request.board_id, request.column_id, user_data.user_id)
 
         task_info = await self.tasks_repository.create_task(request)
 
-        return CreateGymTaskResponse(
+        return CreateMoviesTaskResponse(
             id=task_info.get("id"),
             title=request.title,
             description=request.description,
             created_at=task_info.get("created_at"),
-            message="Tarefa do Gym criada com sucesso.",
+            message="Tarefa do movies criada com sucesso.",
             recommended_by=request.recommended_by,
             category=request.category
         )
 
-    async def get_tasks_in_column(self, board_id: int, column_id: int, user_data: UserJWTData) -> GetGymTasksResponse:
+    async def get_tasks_in_column(self, board_id: int, column_id: int, user_data: UserJWTData) -> GetMoviesTasksResponse:
         await self._verify_board_and_column_ownership(board_id, column_id, user_data.user_id)
 
         tasks = await self.tasks_repository.get_column_tasks(column_id)
 
-        return GetGymTasksResponse(tasks=[GymTaskResponse(**task) for task in tasks])
+        return GetMoviesTasksResponse(tasks=[MoviesTaskResponse(**task) for task in tasks])
 
-    async def update_task(self, request: UpdateGymTaskRequest, user_data: UserJWTData) -> UpdateGymTaskResponse:
+    async def update_task(self, request: UpdateMoviesTaskRequest, user_data: UserJWTData) -> UpdateMoviesTaskResponse:
         if not await self.board_repository.check_board_existency(request.board_id, user_data.user_id):
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
@@ -71,13 +71,13 @@ class GymTasksServices(IGymTasksServices):
 
         await self.tasks_repository.update_task(request)
 
-        return UpdateGymTaskResponse(
+        return UpdateMoviesTaskResponse(
             success=True,
             id=request.task_id,
-            message="Tarefa do Gym atualizada com sucesso."
+            message="Tarefa do movies atualizada com sucesso."
         )
 
-    async def delete_task(self, request: DeleteGymTaskRequest, user_data: UserJWTData) -> DeleteTaskResponse:
+    async def delete_task(self, request: DeleteMoviesTaskRequest, user_data: UserJWTData) -> DeleteTaskResponse:
         if not await self.board_repository.check_board_existency(request.board_id, user_data.user_id):
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
