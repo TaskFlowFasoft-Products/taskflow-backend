@@ -5,3 +5,4 @@ class ProductType(StrEnum):
     CORE = "CORE"
     STUDIES = "STUDIES"
     MOVIES = "MOVIES"
+    GYM = "GYM"
