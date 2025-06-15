@@ -14,6 +14,7 @@ from app.routes.taskflow_studies.tasks_routes import studies_tasks
 from app.routes.taskflow_movies.board_routes import movies_board
 from app.routes.taskflow_movies.tasks_routes import movies_tasks
 from app.routes.taskflow_gym.board_routes import gym_board
+from app.routes.taskflow_gym.tasks_routes import gym_tasks
 
 app = FastAPI(
     title="API TaskFlow",
@@ -34,6 +35,7 @@ app.include_router(studies_tasks)
 app.include_router(movies_board)
 app.include_router(movies_tasks)
 app.include_router(gym_board)
+app.include_router(gym_tasks)
 
 app.add_middleware(
     CORSMiddleware,
