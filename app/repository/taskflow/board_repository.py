@@ -33,7 +33,7 @@ class BoardRepository(IBoardRepository):
             statement=text(
                 "SELECT * FROM BOARDS WHERE USER_ID = :user_id AND product_type = :product_type"
             ),
-            params={"user_id": user_id, "product_type": product_type}
+            params={"user_id": user_id, "product_type": product_type.value}
         )
 
         boards = result.mappings().all()
