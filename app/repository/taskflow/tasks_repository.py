@@ -15,11 +15,10 @@ class TasksRepository(ITasksRepository):
         self.connection = connection
 
     async def create_task(self, tasks_request) -> Dict:
-        columns = ["TITLE", "DESCRIPTION", "COLUMN_ID", "DUE_DATE", "CREATED_AT"]
+        columns = ["TITLE", "COLUMN_ID", "DUE_DATE", "CREATED_AT"]
 
         values = [
             ":title",
-            ":description",
             ":column_id",
             ":due_date",
             "CURRENT_TIMESTAMP AT TIME ZONE 'America/Sao_Paulo'"
@@ -27,21 +26,21 @@ class TasksRepository(ITasksRepository):
 
         params = {
             "title": tasks_request.title,
-            "description": tasks_request.description,
             "column_id": tasks_request.column_id,
-            "due_date": getattr(tasks_request, 'due_date', None)
+            "due_date": getattr(tasks_request, "due_date", None),
         }
 
         optional_fields = {
-            'completion_image_base64': 'completion_image_base64',
-            'recommended_by': 'recommended_by',
-            'rating': 'rating',
-            'category': 'category',
-            'sets_reps': 'sets_reps',
-            'pace_speed': 'pace_speed',
-            'run_screenshot_base64': 'run_screenshot_base64',
-            'rpe_scale': 'rpe_scale',
-            'muscle_group': 'muscle_group'
+            "description": "DESCRIPTION",
+            "completion_image_base64": "COMPLETION_IMAGE_BASE64",
+            "recommended_by": "RECOMMENDED_BY",
+            "rating": "RATING",
+            "category": "CATEGORY",
+            "sets_reps": "SETS_REPS",
+            "pace_speed": "PACE_SPEED",
+            "run_screenshot_base64": "RUN_SCREENSHOT_BASE64",
+            "rpe_scale": "RPE_SCALE",
+            "muscle_group": "MUSCLE_GROUP",
         }
 
         for attr, column in optional_fields.items():
